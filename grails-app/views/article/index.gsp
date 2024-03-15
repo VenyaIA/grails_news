@@ -8,8 +8,10 @@
 <div class="search-news">
     <g:form name="index" action="index" method="GET">
         <div class="item d-flex">
-            <g:textField type="search" class="form-control me-2" aria-label="Search"  style="background: #303134; color: #bdc1c6;" name="searchTerm" value="${searchTerm}"/>
-            <g:actionSubmit class="btn btn-outline-primary" value="Поиск" action="index"/>
+            <g:textField type="search" class="form-control" style="background: #303134; color: #bdc1c6; max-width: 752px;" name="searchTerm" value="${searchTerm}"/>
+            <button class="input-group-text border-0" style="background-color: #202124; color: #8ab4f8;">
+                <i class="bi bi-search"></i>
+            </button>
         </div>
         <div class="item">
             <label class="form-label" for="topicSelect">Фильтр по теме</label>
@@ -42,13 +44,19 @@
                     <div class="d-flex">
                         <g:if test="${article.urlToImage != null}">
                             <div class="flex-shrink-0">
-                                <img class="img-urlToImage" src="${article.urlToImage}" alt="">
+                                <a href="${article.url}" target="_blank">
+                                    <img class="img-urlToImage" src="${article.urlToImage}" alt="">
+                                </a>
+
                             </div>
                         </g:if>
 
                         <div class="flex-grow-1 ms-3">
                             <div class="name-news">
-                                ${article.name}
+                                <a href="${article.url}" target="_blank">
+                                    ${article.name}
+                                </a>
+
                             </div>
 
                             <div class="url-news">

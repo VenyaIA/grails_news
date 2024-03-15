@@ -7,20 +7,28 @@
 <body>
 <div class="search-news">
     <h1>Добавление тем новостей</h1>
-    <g:if test="${noticeSuccess != null}">
+    <g:if test="${noticeSuccess}">
         <div class="alert alert-success" role="alert">
-            ${noticeSuccess}
+            Тема и её новости были добавлены в базу
         </div>
     </g:if>
-    <g:if test="${noticeError != null}">
+    <g:hasErrors bean="${topic}">
         <div class="alert alert-danger" role="alert">
-            ${noticeError}
+            <g:if test="${topic.title == ''}">
+                Тема не может быть пустой
+            </g:if>
+            <g:else>
+                Тема с именем "${topic.title}" уже присутствует
+            </g:else>
         </div>
-    </g:if>
+    </g:hasErrors>
+
     <g:form name="index" action="addTopic" method="POST">
         <div class="d-flex">
-            <g:textField type="search" class="form-control me-2" style="background: #303134; color: #bdc1c6; max-width: 752px;"  name="searchTerm"/>
-            <g:actionSubmit class="btn btn-outline-primary" value="Поиск" action="addTopic">Submit</g:actionSubmit>
+            <g:textField type="search" class="form-control" style="background: #303134; color: #bdc1c6; max-width: 752px;"  name="searchTerm"/>
+            <button class="input-group-text border-0" style="background-color: #202124; color: #8ab4f8;">
+                <i class="bi bi-search"></i>
+            </button>
         </div>
     </g:form>
 </div>
@@ -31,13 +39,17 @@
                 <div class="d-flex">
                     <g:if test="${article.urlToImage != null}">
                         <div class="flex-shrink-0">
-                            <img class="img-urlToImage" src="${article.urlToImage}" alt="">
+                            <a href="${article.url}" target="_blank">
+                                <img class="img-urlToImage" src="${article.urlToImage}" alt="">
+                            </a>
                         </div>
                     </g:if>
 
                     <div class="flex-grow-1 ms-3">
                         <div class="name-news">
-                            ${article.name}
+                            <a href="${article.url}" target="_blank">
+                                ${article.name}
+                            </a>
                         </div>
 
                         <div class="url-news">

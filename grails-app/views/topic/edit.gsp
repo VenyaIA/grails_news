@@ -4,20 +4,32 @@
     <meta name="layout" content="main"/>
     <title>Show News</title>
 </head>
+
 <body>
 <div class="content-news-list">
-    <g:if test="${notice != null}">
+    <h1>Обновление тем новостей</h1>
+    <g:if test="${noticeSuccess}">
         <div class="alert alert-success" role="alert">
-            ${notice}
+            Тема обновлена
         </div>
-
     </g:if>
+    <g:hasErrors bean="${topic}">
+        <div class="alert alert-danger" role="alert">
+            <g:if test="${topic.title == ''}">
+                Тема не может быть пустой
+            </g:if>
+            <g:else>
+                Тема с именем "${topic.title}" уже присутствует
+            </g:else>
+        </div>
+    </g:hasErrors>
     <g:form action="update" id="${topic.id}" method="PUT">
         <label for="title">Title</label>
+
         <div class="item d-flex">
 
             <input class="form-control me-1" type="text" name="title" value="${topic.title}" id="title"/>
-            <input class="btn btn-outline-primary" type="submit" value="Update" />
+            <input class="btn btn-outline-primary" type="submit" value="Update"/>
         </div>
 
     </g:form>
@@ -27,16 +39,21 @@
     <g:if test="${articleList != null}">
         <g:each in="${articleList}" var="article">
             <div class="item-news">
+
                 <div class="d-flex">
                     <g:if test="${article.urlToImage != null}">
                         <div class="flex-shrink-0">
-                            <img class="img-urlToImage" src="${article.urlToImage}" alt="">
+                            <a href="${article.url}" target="_blank">
+                                <img class="img-urlToImage" src="${article.urlToImage}" alt="">
+                            </a>
                         </div>
                     </g:if>
 
                     <div class="flex-grow-1 ms-3">
                         <div class="name-news">
-                            ${article.name}
+                            <a href="${article.url}" target="_blank">
+                                ${article.name}
+                            </a>
                         </div>
 
                         <div class="url-news">
@@ -60,6 +77,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </g:each>
     </g:if>

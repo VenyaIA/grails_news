@@ -32,9 +32,13 @@
                         </div>
 
                         <div class="p-2 bd-highlight">
-                            <g:link class="btn btn-outline-primary" action="edit" id="${topic.id}">Edit</g:link>
-                            <g:link class="btn btn-outline-primary" action="delete" id="${topic.id}"
-                                    onclick="return confirm('Вы уверены?');">Delete</g:link>
+                            <g:link class="btn btn-outline-info" action="edit" id="${topic.id}">
+                                <i class="bi bi-pencil"></i>
+                            </g:link>
+                            <g:link class="btn btn-outline-danger" action="delete" id="${topic.id}"
+                                    onclick="return confirm('Вы уверены что хотите удалить тему?');">
+                                <i class="bi bi-trash"></i>
+                            </g:link>
                         </div>
 
                     </div>
